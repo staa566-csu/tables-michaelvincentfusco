@@ -1,0 +1,39 @@
+---
+title: "HW4"
+author: "Michael Fusco"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Load Libraries
+
+```{r Load Libraries, echo = FALSE}
+library(dplyr)
+library(knitr)
+library(tidyverse)
+library(kableExtra)
+```
+
+Create Table
+
+```{r Create Table}
+DataCases <- read.csv("uscs_map_incidence_all.csv")
+DataDeaths <- read.csv("uscs_map_death_all.csv")
+Data <- cbind(DataCases[1:3],
+							DataDeaths[2:3])
+colnames(Data) <- c("State",
+										"Minimum to Maximum",
+										"Rate",
+										"Minimum to Maximum",
+										"Rate")
+Table <- Data %>%
+	kable(align = "l") %>%
+	add_header_above(c("", "Cases of Cancer" = 2, "Deaths from Cancer" = 2)) %>%
+	kable_styling(full_width = FALSE,
+								font_size = 18,
+								html_font = "timesnewroman",
+								fixed_thead = TRUE) %>%
+	save_kable("table.pdf")
+Table
+```
+
